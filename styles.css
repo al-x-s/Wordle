@@ -21,7 +21,6 @@ If you're using third parties you can use the more comprehensive fix which is::a
 
 #container {
     display: grid;
-    /* height: 100%; */
     grid-template-columns: 10px 1fr 10px;
     grid-template-rows: 0.4fr repeat(7, 0.5fr) 1fr;
 }
@@ -40,7 +39,7 @@ If you're using third parties you can use the more comprehensive fix which is::a
     font-size: 2em;
 }
 
-#container > div {
+#container > div:not(:last-child) {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -97,6 +96,22 @@ header {
     grid-column: 1 / 4;
     grid-row: 9 / 10;
 }
+
+.keyboardRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.keyboardButton {
+    border: 1px solid black;
+    text-align: center;
+    padding: 8px;
+    margin: 10px 0;
+    background-color: lightgrey;
+    color: black;
+}
+
 
 footer {
     grid-column: 1 / 4;

@@ -5,13 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <script src="index.js" defer></script>
+    <script type="module" src="index.mjs" defer></script>
     <title>Wordle</title>
 </head>
 <body>
     <div id="container">
         <header>
-            <h1>Worldle Millionaire</h1>
+            <h1>Wordle Millionaire</h1>
         </header>
         <div id="row-reveal">
             <div class="row-reveal square">?</div>
@@ -56,11 +56,46 @@
             <div class="row-guess square"></div>
         </div>
         <div id="lifelines">LIFELINES DIALOG BUTTON</div>
-        <div id="keyboard">KEYBOARD</div>
+        <div id="keyboard">
+            <div id="row-1" class="keyboardRow">
+                <div id="q" class="keyboardButton">Q</div>
+                <div id="w" class="keyboardButton">W</div>
+                <div id="e" class="keyboardButton">E</div>
+                <div id="r" class="keyboardButton">R</div>
+                <div id="t" class="keyboardButton">T</div>
+                <div id="y" class="keyboardButton">Y</div>
+                <div id="u" class="keyboardButton">U</div>
+                <div id="i" class="keyboardButton">I</div>
+                <div id="o" class="keyboardButton">O</div>
+                <div id="p" class="keyboardButton">P</div>
+            </div>
+            <div id="row-2" class="keyboardRow">
+                <button id="a" class="keyboardButton">A</button>
+                <button id="s" class="keyboardButton">S</button>
+                <button id="d" class="keyboardButton">D</button>
+                <button id="f" class="keyboardButton">F</button>
+                <button id="g" class="keyboardButton">G</button>
+                <button id="h" class="keyboardButton">H</button>
+                <button id="j" class="keyboardButton">J</button>
+                <button id="k" class="keyboardButton">K</button>
+                <button id="l" class="keyboardButton">L</button>
+            </div>
+            <div id="row-3" class="keyboardRow">
+                <button id="backspace" class="keyboardButton">&#9249;</button>
+                <button id="z" class="keyboardButton">Z</button>
+                <button id="x" class="keyboardButton">X</button>
+                <button id="c" class="keyboardButton">C</button>
+                <button id="v" class="keyboardButton">V</button>
+                <button id="b" class="keyboardButton">B</button>
+                <button id="n" class="keyboardButton">N</button>
+                <button id="m" class="keyboardButton">M</button>
+                <button id="enter" class="keyboardButton">ENTER</button>
+            </div>
+        </div>
 
-        <footer>
-            <p>Created by Alex Slater</p>
-        </footer>
     </div>
+    <footer>
+        <p>Created by Alex Slater</p>
+    </footer>
 </body>
 </html>
