@@ -21,6 +21,8 @@ If you're using third parties you can use the more comprehensive fix which is::a
 
 #container {
     display: grid;
+    max-width: 500px;
+    margin: auto;
     grid-template-columns: 10px 1fr 10px;
     grid-template-rows: 0.4fr repeat(7, 0.5fr) 1fr;
 }
