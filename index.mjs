@@ -91,6 +91,10 @@ const keyboardInput = (e) => {
     let rowGuess = document.getElementById(guessId);
     let rowSquares = Array.from(rowGuess.querySelectorAll('div'));
   
+    if (e.key === 'Meta') {
+        return;
+    }
+
     if (e.key === 'Backspace') {
        
         for (let i = rowSquares.length-1; i >= 0; i--) {
