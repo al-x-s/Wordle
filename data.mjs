@@ -2419,3 +2419,11 @@ export const alphabet = [
     'y',
     'z',
 ]
+
+export const prizeMoney = [
+    "$100",
+    "$1000",
+    "$10,000",
+    "$100,000",
+    "$100,000,000",
+]

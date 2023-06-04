@@ -12,13 +12,14 @@
     <div id="container">
         <header>
             <h1>Wordle Millionaire</h1>
+            <p id="roundCounter">Round 1 - $100</p>
         </header>
         <div id="row-reveal">
-            <div class="row-reveal square">?</div>
-            <div class="row-reveal square">?</div>
-            <div class="row-reveal square">?</div>
-            <div class="row-reveal square">?</div>
-            <div class="row-reveal square">?</div>
+            <div class="row-reveal revealSquare">?</div>
+            <div class="row-reveal revealSquare">?</div>
+            <div class="row-reveal revealSquare">?</div>
+            <div class="row-reveal revealSquare">?</div>
+            <div class="row-reveal revealSquare">?</div>
         </div>
         <div id="row-guess-1">
             <div class="row-guess square"></div>
@@ -55,7 +56,7 @@
             <div class="row-guess square"></div>
             <div class="row-guess square"></div>
         </div>
-        <div id="lifelines">LIFELINES DIALOG BUTTON</div>
+        <div id="lifelines">LIFELINES</div>
         <div id="keyboard">
             <div id="row-1" class="keyboardRow">
                 <div id="q" class="keyboardButton">Q</div>
@@ -97,5 +98,31 @@
     <footer>
         <p>Created by Alex Slater</p>
     </footer>
+    <dialog id="invalidWord">
+        <p>Please enter a valid word</p>
+    </dialog>
+    <dialog id="notEnoughLetters">
+        <p>Please enter a 5 letter word</p>
+    </dialog>
+    <dialog id="roundWinDialog" autofocus>
+        <p id="roundWinMessage"></p>
+        <button id="nextRound">Next Round</button>
+    </dialog>
+    <dialog id="gameWinDialog">
+        <p id="gameWinMessage">You're a MILLIONAIRE!</p>
+        <button id="newGameWin">Play Again</button>
+    </dialog>
+    <dialog id="gameLoseDialog">
+        <p id="gameLoseMessage">You Lose! Better luck next time.</p>
+        <button id="newGameLose">Play Again</button>
+    </dialog>
+    <dialog id="lifelinesDialog">
+        <button id="50-50">50/50</button>
+        <button id="askAudience">Ask The Audience</button>
+        <button id="phoneFriend">Phone A Friend</button>
+        <button id="newWord">New Word</button>
+        <button id="cancelLifeline">Cancel</button>
+    </dialog>
+    <output id="messageOutput"></output>
 </body>
 </html>

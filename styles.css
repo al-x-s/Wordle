@@ -27,8 +27,18 @@ If you're using third parties you can use the more comprehensive fix which is::a
     grid-template-rows: 0.4fr repeat(7, 0.5fr) 1fr;
 }
 
-#row-reveal .square {
+/* #row-reveal .square {
     border: 1px solid gold;
+} */
+
+.revealSquare {
+    height: 2em;
+    width: 2em;
+    border: 1px solid gold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
 }
 
 .square {
@@ -51,6 +61,7 @@ If you're using third parties you can use the more comprehensive fix which is::a
 header {
     grid-column: 1 / 4;
     grid-row: 1 / 2;
+    margin-top: 10px;
     text-align: center;
 }
 
@@ -114,11 +125,30 @@ header {
     color: black;
 }
 
+#lifelinesDialog > button {
+    font-size: 1.5em;
+    padding: 10px;
+    width: 45%;
+    
+}
+
+#lifelinesDialog > button:not(:last-child) {
+    border: 4px solid orange;
+}
+
+#lifelinesDialog:modal {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    row-gap: 20px;
+    column-gap: 20px;
+}
+
+
 
 footer {
     grid-column: 1 / 4;
     grid-row: 10 / 11;
     text-align: center;
 }
-
-
