@@ -12,9 +12,19 @@ If you're using third parties you can use the more comprehensive fix which is::a
     box-sizing: inherit;
 } */
 
+:root {
+    --unfoundColor: lightgrey;
+    --foundColor: yellow;
+    --locatedColor: green;
+    --discardedColor: grey;
+    --backgroundColor: #240066;
+    --textColor: #FBFCFF;
+    --goldHighlight: #ffd700;
+}
+
 body {
-    background-color: #240046;
-    color: #FBFCFF;
+    background-color: var(--backgroundColor);
+    color: var(--textColor);
 }
 
 *,
@@ -39,7 +49,9 @@ body {
 .revealSquare {
     height: 2em;
     width: 2em;
-    border: 1px solid #ffd700;
+    border: 1px solid var(--goldHighlight);
+    background-color: var(--backgroundColor);
+    border-radius: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -49,7 +61,9 @@ body {
 .square {
     height: 2em;
     width: 2em;
-    border: 1px solid grey;
+    border: 1px solid var(--discardedColor);
+    background-color: var(--backgroundColor);
+    border-radius: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -124,8 +138,7 @@ header > h1 {
     border: 1px solid black;
     text-align: center;
     padding: 14px 10px;
-    /* margin: 2px 0; */
-    background-color: lightgrey;
+    background-color: var(--unfoundColor);
     color: black;
 }
 
@@ -143,7 +156,8 @@ header > h1 {
 }
 
 #lifelines {
-    border: 2px solid gold;
+    border: 2px solid var(--goldHighlight);
+    border-radius: 5px;
     padding: 4px 6px;
     flex-basis: 40%;
     text-align: center;
@@ -157,19 +171,44 @@ header > h1 {
 }
 
 #lifelinesDialog > button:not(:last-child) {
-    border: 4px solid orange;
+    border: 2px solid var(--goldHighlight);
+    background-color: #FF9E00;
+}
+
+#lifelinesDialog > button:last-child {
+    border: none;
+    background-color: #FF9100;
 }
 
 #lifelinesDialog:modal {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    font-size: 1.4em;
+    background-color: #FF7900;
+    border-radius: 5px;
+    border: none;
+    flex-direction: column;
     justify-content: space-around;
-    row-gap: 20px;
-    column-gap: 20px;
+    row-gap: 10px;
+    /* column-gap: 20px; */
 }
 
+dialog {
+    background-color: #FF6D00;
+    color: white;
+    font-size: 1.5em;
+    border-radius: 5px;
+    text-align: center;
+}
 
+dialog > button {
+    font-size: 0.7em;
+    background-color: #FF9100;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#answer {
+    font-size: 2em;
+}
 
 footer {
     grid-column: 1 / 4;

@@ -12,6 +12,14 @@ let guessNumber = 1;
 let round = 1;
 let wins = 0;
 
+// ****** COLOURS ******
+// Colours for keyboardObject.states
+const unfoundColor = '#D0CCD0'
+const foundColor = '#CBA328'
+const locatedColor = '#69995D'
+const discardedColor = 'grey'
+const backgroundColor = '#240046'
+
 
 // ****** DOCUMENT OBJECTS ******
 const container = document.getElementById('container');
@@ -31,13 +39,14 @@ const lifelineDialogButtons = lifelinesDialog.querySelectorAll('button');
 const rowRevealDiv = document.getElementById('row-reveal');
 const revealBoxes = rowRevealDiv.querySelectorAll('div');
 const gameLoseDialog = document.getElementById('gameLoseDialog');
+const keyboardDiv = document.getElementById('keyboard');
 
 // ****** Reset Reveal Boxes ******
 
 const resetReveal = () => {
     revealBoxes.forEach((box) => {
         box.textContent = '?';
-        box.style.backgroundColor = '#240046';
+        box.style.backgroundColor = backgroundColor;
     })
 };
 
@@ -54,13 +63,13 @@ const nextRound = () => {
 
     gameSquares.forEach((square) => {
         square.textContent = '';
-        square.style.backgroundColor = '#240046';
+        square.style.backgroundColor = backgroundColor;
     })
     // reset keyboard to lightgrey
     alphabet.forEach((letter) => {
         let letterDiv = document.getElementById(letter)
-        letterDiv.style.backgroundColor = 'lightgrey';
-        keyboardObject[letter].color = 'lightgrey';
+        letterDiv.style.backgroundColor = unfoundColor;
+        keyboardObject[letter].state = 'unfound';
     })
 
     resetReveal()
@@ -85,14 +94,14 @@ const newGame = () => {
 
 // ***** KEYBOARD INPUT FUNCTIONS ******
 
-const updateKeyboard = (letter, color) => {
+const updateKeyboard = (letter, state, color) => {
    
-    if (keyboardObject[letter].color === 'green') {
+    if (keyboardObject[letter].state === 'located') {
 
     } else {
+        keyboardObject[letter].state = state;
         let letterDiv = document.getElementById(letter)
         letterDiv.style.backgroundColor = color;
-        keyboardObject[letter].color = color;
     }
 
 }
@@ -129,20 +138,24 @@ const checkanswer = (guessArray) => {
         for (let i = 0; i < guessArray.length; i++) {
 
             let letter = guessArray[i];
+            let state = ''
             let color = ''
      
             if (letter === gameWordArray[i]) {
-                color = 'green' 
-                rowSquares[i].style.backgroundColor = color;
-                updateKeyboard(letter, color);
+                state = 'discovered'
+                color = locatedColor
+                rowSquares[i].style.backgroundColor = locatedColor;
+                updateKeyboard(letter, state, color);
             } else if (gameWordArray.includes(letter)) {
-                color = 'yellow'
-                rowSquares[i].style.backgroundColor = color;
-                updateKeyboard(letter, color);
+                state = 'found'
+                color = foundColor
+                rowSquares[i].style.backgroundColor = foundColor;
+                updateKeyboard(letter, state, color);
             } else {
-                color = 'grey'
-                rowSquares[i].style.backgroundColor = color;
-                updateKeyboard(letter, color);
+                state = 'discarded';
+                color = discardedColor;
+                rowSquares[i].style.backgroundColor = 'black';
+                updateKeyboard(letter, state, color);
             }
 
            
@@ -158,7 +171,7 @@ const checkanswer = (guessArray) => {
     
     
     if (guessWord === gameWord && round < 5) {
-        roundWinMessage.textContent = `You correctly guessed ${gameWord}!`;
+        roundWinMessage.innerHTML = `You correctly guessed <span id="answer">${gameWord.toUpperCase()}</span>`;
         roundWinDialog.showModal();
         round++
     } else if (guessWord === gameWord) {
@@ -175,14 +188,8 @@ const keyboardInput = (e) => {
     let guessId = `row-guess-${guessNumber}`;
     let rowGuess = document.getElementById(guessId);
     let rowSquares = Array.from(rowGuess.querySelectorAll('div'));
-
-    if(roundWinDialog.open || gameWinDialog.open) {
-        if (e.key !== 'Enter') {
-            return;
-        }
-    }
   
-    if (e.key === 'Meta') {
+    if (e.key === 'Meta' || e.key === 'F12') {
         return;
     }
 
@@ -231,6 +238,67 @@ const keyboardInput = (e) => {
     
 }
 
+// ****** ON SCREEN KEYBOARD INPUT ******
+
+const screenKeyboard = (e) => {
+    if (!e.target.classList.contains('keyboardButton')) {
+        return;
+    }
+
+    console.log(e.target.id);
+
+    let guessId = `row-guess-${guessNumber}`;
+    let rowGuess = document.getElementById(guessId);
+    let rowSquares = Array.from(rowGuess.querySelectorAll('div'));
+  
+
+    if (e.target.id === 'Backspace') {
+       
+        for (let i = rowSquares.length-1; i >= 0; i--) {
+            if (rowSquares[i].textContent !== '') {
+                rowSquares[i].textContent = '';
+                return;
+            }
+        }
+
+        return;
+    }
+
+    if (e.target.id === 'Enter') {
+        let guessArray = [];
+        
+        rowSquares.forEach((square) => {
+            if (square.textContent !== '') {
+                guessArray.push(square.textContent.toLowerCase());
+            }
+        })
+
+        checkanswer(guessArray);
+        return;
+
+    }
+
+
+    
+    const regex = /[a-z]/i
+    if (regex.test(e.target.id)) {
+
+        const letter = e.target.id.toUpperCase();
+
+        for (let i = 0; i < rowSquares.length; i++) {
+            if (rowSquares[i].textContent === '') {
+                rowSquares[i].textContent = letter;
+                return;
+            }
+        }
+
+    }
+
+}
+
+keyboardDiv.addEventListener('touchstart', screenKeyboard);
+
+
 // ****** "SHUFFLE" FUNCTION ******
 
 function shuffle(array) {
@@ -253,6 +321,14 @@ function shuffle(array) {
 
 // ****** LIFE LINES ******
 
+const askAudienceIcon = document.getElementById('askAudienceIcon');
+const fiftyFiftyIcon = document.getElementById('fiftyFiftyIcon');
+const newWordIcon = document.getElementById('newWordIcon');
+const phoneFriendIcon = document.getElementById('phoneFriendIcon');
+
+
+
+
 const openLifeline = () => {
     lifelinesDialog.showModal();
 }
@@ -260,10 +336,11 @@ const openLifeline = () => {
 const fiftyfifty = (button) => {
     console.log("fiftyfifty");
     button.disabled = true;
+    fiftyFiftyIcon.style.color = 'black';
     //create an array which pushes keys for values of 'lightgrey' from keyboardObject
     let unusedLetters = [];
     alphabet.forEach((letter) => {
-        if (keyboardObject[letter].color === 'lightgrey') {
+        if (keyboardObject[letter].state === 'unfound') {
             unusedLetters.push(letter);
         }
     });
@@ -296,8 +373,8 @@ const fiftyfifty = (button) => {
 
     unusedLetters.forEach((letter) => {
         let box = document.getElementById(letter);
-        box.style.backgroundColor = 'grey';
-        keyboardObject[letter].color = 'grey';
+        box.style.backgroundColor = discardedColor;
+        keyboardObject[letter].state = 'discarded';
     })
 
     // close Lifelines dialog window
@@ -307,14 +384,15 @@ const fiftyfifty = (button) => {
 const askAudience = (button) => {
     console.log("askAudience");
     button.disabled = true;
+    askAudienceIcon.style.color = 'black';
 
     // first create an array which takes the index of any revealDiv's that are already in use
 
-    let alreadyRevealedIndex = -1;
+    let alreadyRevealedIndex = [];
 
     revealBoxes.forEach((box, index) => {
         if (box.textContent !== '?') {
-            alreadyRevealedIndex = index;
+            alreadyRevealedIndex.push(index);
         }
     })
 
@@ -322,7 +400,7 @@ const askAudience = (button) => {
     let askAudienceArray = [];
 
     gameWordArray.forEach((letter, index) => {
-        if (index !== alreadyRevealedIndex && (keyboardObject[letter].color === 'lightgrey' || keyboardObject[letter].color === 'yellow')) {
+        if (index !== alreadyRevealedIndex[0] && keyboardObject[letter].state === 'unfound') {
             askAudienceArray.push(letter);
         }
     });
@@ -330,28 +408,32 @@ const askAudience = (button) => {
     // select a value from the array at random
 
     let askAudienceLetter = askAudienceArray[Math.floor(Math.random() * askAudienceArray.length)]
+    console.log(askAudienceLetter);
 
      // get the index of this value from the word Array so you can avoid it
 
      let avoidIndex = gameWordArray.indexOf(askAudienceLetter);
      let indexArray = [1, 2, 3, 4, 5];
      indexArray.splice(avoidIndex, 1);
-     if (alreadyRevealedIndex >= 0) {
-        indexArray.splice(alreadyRevealedIndex, 1);
+     if (alreadyRevealedIndex[0] >= 0) {
+        indexArray.splice(alreadyRevealedIndex[0], 1);
      }
-
+    
      let index = indexArray[Math.floor(Math.random() * indexArray.length)];
+     if (index === 5) {
+        index--
+     }
 
      // then create an index which is not the avoid index or the already revealed index
 
      // target the row-reveal Div's with a querySelectorAll and use the index of the value from the word array to target a div and change it's textContent to the letter as well as it's background color to green
  
      revealBoxes[index].textContent = askAudienceLetter.toUpperCase();
-     revealBoxes[index].style.backgroundColor = 'yellow';
+     revealBoxes[index].style.backgroundColor = foundColor;
      
      // after this change the keyboardObject[letter].color to green as well
  
-     keyboardObject[askAudienceLetter].color = 'yellow';
+     keyboardObject[askAudienceLetter].state = 'found';
  
      // close Lifelines dialog window
      lifelinesDialog.close();
@@ -361,6 +443,7 @@ const askAudience = (button) => {
 const phoneFriend = (button) => {
     console.log("phoneFriend");
     button.disabled = true;
+    phoneFriendIcon.style.color = 'black';
 
     // first create an array which takes the index of any revealDiv's that are already in use
 
@@ -376,7 +459,7 @@ const phoneFriend = (button) => {
     let phoneFriendArray = [];
 
      gameWordArray.forEach((letter, index) => {
-        if (index !== alreadyRevealedIndex && (keyboardObject[letter].color === 'lightgrey' || keyboardObject[letter].color === 'yellow')) {
+        if (index !== alreadyRevealedIndex && (keyboardObject[letter].state === 'unfound' || keyboardObject[letter].state === 'found')) {
             phoneFriendArray.push(letter);
         }
     });
@@ -392,11 +475,11 @@ const phoneFriend = (button) => {
     // target the row-reveal Div's with a querySelectorAll and use the index of the value from the word array to target a div and change it's textContent to the letter as well as it's background color to green
 
     revealBoxes[index].textContent = phoneFriendLetter.toUpperCase();
-    revealBoxes[index].style.backgroundColor = 'green';
+    revealBoxes[index].style.backgroundColor = locatedColor;
     
     // after this change the keyboardObject[letter].color to green as well
 
-    keyboardObject[phoneFriendLetter].color = 'green';
+    keyboardObject[phoneFriendLetter].state = 'located';
 
     // close Lifelines dialog window
     lifelinesDialog.close();
@@ -406,6 +489,7 @@ const phoneFriend = (button) => {
 const newWord = (button) => {
     console.log("newWord");
     button.disabled = true;
+    newWordIcon.style.color = 'black';
 
     nextRound();
 
@@ -459,3 +543,4 @@ lifelinesButton.addEventListener('click', openLifeline);
 lifelinesDialog.addEventListener('click', lifelineOptions);
 
 
+newGame();

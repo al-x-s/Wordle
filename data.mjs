@@ -2312,82 +2312,82 @@ export const wordList = [
 
 export const keyboardObject = {
     a: {
-        color: "lightgrey"
+        state: "unfound"
     },
     b: {
-        color: "lightgrey"
+        state: "unfound"
     },
     c: {
-        color: "lightgrey"
+        state: "unfound"
     },
     d: {
-        color: "lightgrey"
+        state: "unfound"
     },
     e: {
-        color: "lightgrey"
+        state: "unfound"
     },
     f: {
-        color: "lightgrey"
+        state: "unfound"
     },
     g: {
-        color: "lightgrey"
+        state: "unfound"
     },
     h: {
-        color: "lightgrey"
+        state: "unfound"
     },
     i: {
-        color: "lightgrey"
+        state: "unfound"
     },
     j: {
-        color: "lightgrey"
+        state: "unfound"
     },
     k: {
-        color: "lightgrey"
+        state: "unfound"
     },
     l: {
-        color: "lightgrey"
+        state: "unfound"
     },
     m: {
-        color: "lightgrey"
+        state: "unfound"
     },
     n: {
-        color: "lightgrey"
+        state: "unfound"
     },
     o: {
-        color: "lightgrey"
+        state: "unfound"
     },
     p: {
-        color: "lightgrey"
+        state: "unfound"
     },
     q: {
-        color: "lightgrey"
+        state: "unfound"
     },
     r: {
-        color: "lightgrey"
+        state: "unfound"
     },
     s: {
-        color: "lightgrey"
+        state: "unfound"
     },
     t: {
-        color: "lightgrey"
+        state: "unfound"
     },
     u: {
-        color: "lightgrey"
+        state: "unfound"
     },
     v: {
-        color: "lightgrey"
+        state: "unfound"
     },
     w: {
-        color: "lightgrey"
+        state: "unfound"
     },
     x: {
-        color: "lightgrey"
+        state: "unfound"
     },
     y: {
-        color: "lightgrey"
+        state: "unfound"
     },
     z: {
-        color: "lightgrey"
+        state: "unfound"
     },
 }
 

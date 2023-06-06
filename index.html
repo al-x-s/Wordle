@@ -58,18 +58,18 @@
             <div class="row-guess square"></div>
         </div>
         <div id="lifelinesDiv">
-            <div class="icon">
-                <i class="fas fa-phone"></i>
-            </div>
-            <div class="icon">
-                <i class="fas fa-percent"></i>
-            </div>
-            <div id="lifelines">Lifelines</div>
-            <div class="icon">
+            <div id="askAudienceIcon" class="icon">
                 <i class="fas fa-poll"></i>
             </div>
-            <div class="icon">
+            <div id="phoneFriendIcon" class="icon">
+                <i class="fas fa-phone"></i>
+            </div>
+            <div id="lifelines">Lifelines</div>
+            <div id="newWordIcon" class="icon">
                 <i class="fas fa-sync-alt"></i>
+            </div>
+            <div id="fiftyFiftyIcon" class="icon">
+                <i class="fas fa-percent"></i>
             </div>
         </div>
         <div id="keyboard">
@@ -97,7 +97,7 @@
                 <button id="l" class="keyboardButton">L</button>
             </div>
             <div id="row-3" class="keyboardRow">
-                <button id="backspace" class="keyboardButton"><i class="fa fa-backspace"></i></button>
+                <button id="Backspace" class="keyboardButton">BACK</button>
                 <button id="z" class="keyboardButton">Z</button>
                 <button id="x" class="keyboardButton">X</button>
                 <button id="c" class="keyboardButton">C</button>
@@ -105,7 +105,7 @@
                 <button id="b" class="keyboardButton">B</button>
                 <button id="n" class="keyboardButton">N</button>
                 <button id="m" class="keyboardButton">M</button>
-                <button id="enter" class="keyboardButton">ENTER</button>
+                <button id="Enter" class="keyboardButton">ENTER</button>
             </div>
         </div>
 
@@ -124,18 +124,18 @@
         <button id="nextRound">Next Round</button>
     </dialog>
     <dialog id="gameWinDialog">
-        <p id="gameWinMessage">You're a MILLIONAIRE!</p>
+        <p id="gameWinMessage">You won <span id="answer">$1,000,000!</span></p>
         <button id="newGameWin">Play Again</button>
     </dialog>
     <dialog id="gameLoseDialog">
-        <p id="gameLoseMessage">You Lose! Better luck next time.</p>
+        <p id="gameLoseMessage">You Lost! Better luck next time.</p>
         <button id="newGameLose">Play Again</button>
     </dialog>
     <dialog id="lifelinesDialog">
-        <button id="50-50">50/50</button>
         <button id="askAudience">Ask The Audience</button>
         <button id="phoneFriend">Phone A Friend</button>
         <button id="newWord">New Word</button>
+        <button id="50-50">50/50</button>
         <button id="cancelLifeline" autofocus>Cancel</button>
     </dialog>
     <output id="messageOutput"></output>
