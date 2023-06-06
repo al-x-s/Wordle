@@ -12,6 +12,10 @@ If you're using third parties you can use the more comprehensive fix which is::a
     box-sizing: inherit;
 } */
 
+body {
+    background-color: #240046;
+    color: #FBFCFF;
+}
 
 *,
 ::before,
@@ -23,8 +27,9 @@ If you're using third parties you can use the more comprehensive fix which is::a
     display: grid;
     max-width: 500px;
     margin: auto;
-    grid-template-columns: 10px 1fr 10px;
-    grid-template-rows: 0.4fr repeat(7, 0.5fr) 1fr;
+    height: 100vh;
+    grid-template-columns: 20px 1fr 20px;
+    grid-template-rows: 0.1fr repeat(7, 0.7fr) 2fr;
 }
 
 /* #row-reveal .square {
@@ -34,11 +39,11 @@ If you're using third parties you can use the more comprehensive fix which is::a
 .revealSquare {
     height: 2em;
     width: 2em;
-    border: 1px solid gold;
+    border: 1px solid #ffd700;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2em;
+    font-size: 1.8em;
 }
 
 .square {
@@ -48,7 +53,7 @@ If you're using third parties you can use the more comprehensive fix which is::a
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2em;
+    font-size: 1.8em;
 }
 
 #container > div:not(:last-child) {
@@ -61,8 +66,14 @@ If you're using third parties you can use the more comprehensive fix which is::a
 header {
     grid-column: 1 / 4;
     grid-row: 1 / 2;
-    margin-top: 10px;
-    text-align: center;
+    margin: 0 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+header > h1 {
+    font-size: 1.2em;
 }
 
 #row-reveal {
@@ -96,16 +107,8 @@ header {
     grid-row: 7 / 8;
 }
 
-#lifelines {
-    grid-column: 2 / 3;
-    grid-row: 8 / 9;
-    height: 4em;
-    border: 1px solid blue;
-}
-
 #keyboard {
     height: 10.5em;
-    border: 1px solid red;
     grid-column: 1 / 4;
     grid-row: 9 / 10;
 }
@@ -114,21 +117,42 @@ header {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    column-gap: 2px;
 }
 
 .keyboardButton {
     border: 1px solid black;
     text-align: center;
-    padding: 8px;
-    margin: 10px 0;
+    padding: 14px 10px;
+    /* margin: 2px 0; */
     background-color: lightgrey;
     color: black;
 }
 
+#row-2 {
+    margin: 2px 0;
+    justify-content: center;
+}
+
+#lifelinesDiv {
+    grid-column: 2 / 3;
+    grid-row: 8 / 9;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+#lifelines {
+    border: 2px solid gold;
+    padding: 4px 6px;
+    flex-basis: 40%;
+    text-align: center;
+}
+
 #lifelinesDialog > button {
-    font-size: 1.5em;
-    padding: 10px;
-    width: 45%;
+    font-size: 1.2em;
+    padding: 0.3em;
+    /* width: 45%; */
     
 }
 

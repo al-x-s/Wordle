@@ -37,7 +37,7 @@ const gameLoseDialog = document.getElementById('gameLoseDialog');
 const resetReveal = () => {
     revealBoxes.forEach((box) => {
         box.textContent = '?';
-        box.style.backgroundColor = 'white';
+        box.style.backgroundColor = '#240046';
     })
 };
 
@@ -54,7 +54,7 @@ const nextRound = () => {
 
     gameSquares.forEach((square) => {
         square.textContent = '';
-        square.style.backgroundColor = 'white';
+        square.style.backgroundColor = '#240046';
     })
     // reset keyboard to lightgrey
     alphabet.forEach((letter) => {

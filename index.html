@@ -5,13 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script type="module" src="index.mjs" defer></script>
     <title>Wordle</title>
 </head>
 <body>
     <div id="container">
         <header>
-            <h1>Wordle Millionaire</h1>
+            <h1>Millionordle</h1>
             <p id="roundCounter">Round 1 - $100</p>
         </header>
         <div id="row-reveal">
@@ -56,7 +57,21 @@
             <div class="row-guess square"></div>
             <div class="row-guess square"></div>
         </div>
-        <div id="lifelines">LIFELINES</div>
+        <div id="lifelinesDiv">
+            <div class="icon">
+                <i class="fas fa-phone"></i>
+            </div>
+            <div class="icon">
+                <i class="fas fa-percent"></i>
+            </div>
+            <div id="lifelines">Lifelines</div>
+            <div class="icon">
+                <i class="fas fa-poll"></i>
+            </div>
+            <div class="icon">
+                <i class="fas fa-sync-alt"></i>
+            </div>
+        </div>
         <div id="keyboard">
             <div id="row-1" class="keyboardRow">
                 <div id="q" class="keyboardButton">Q</div>
@@ -82,7 +97,7 @@
                 <button id="l" class="keyboardButton">L</button>
             </div>
             <div id="row-3" class="keyboardRow">
-                <button id="backspace" class="keyboardButton">&#9249;</button>
+                <button id="backspace" class="keyboardButton"><i class="fa fa-backspace"></i></button>
                 <button id="z" class="keyboardButton">Z</button>
                 <button id="x" class="keyboardButton">X</button>
                 <button id="c" class="keyboardButton">C</button>
@@ -121,7 +136,7 @@
         <button id="askAudience">Ask The Audience</button>
         <button id="phoneFriend">Phone A Friend</button>
         <button id="newWord">New Word</button>
-        <button id="cancelLifeline">Cancel</button>
+        <button id="cancelLifeline" autofocus>Cancel</button>
     </dialog>
     <output id="messageOutput"></output>
 </body>
