@@ -297,6 +297,7 @@ const screenKeyboard = (e) => {
 }
 
 keyboardDiv.addEventListener('touchstart', screenKeyboard);
+// keyboardDiv.addEventListener('click', screenKeyboard);
 
 
 // ****** "SHUFFLE" FUNCTION ******
