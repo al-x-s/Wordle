@@ -128,7 +128,7 @@ header > h1 {
 
 #keyboard {
     height: 10.5em;
-    max-width: 100%;
+    max-width: 370px;
     grid-column: 1 / 4;
     grid-row: 9 / 10;
     justify-self: center;
