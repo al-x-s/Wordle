@@ -25,6 +25,7 @@ If you're using third parties you can use the more comprehensive fix which is::a
 body {
     background-color: var(--backgroundColor);
     color: var(--textColor);
+    font-family: 'Ubuntu Mono', monospace;
 }
 
 *,
@@ -45,6 +46,10 @@ body {
 /* #row-reveal .square {
     border: 1px solid gold;
 } */
+header > h1 {
+    font-family: 'Comfortaa', cursive;
+    font-size: 1.3em;
+}
 
 .revealSquare {
     height: 2em;
@@ -123,7 +128,7 @@ header > h1 {
 
 #keyboard {
     height: 10.5em;
-    max-width: 400px;
+    max-width: 100%;
     grid-column: 1 / 4;
     grid-row: 9 / 10;
     justify-self: center;
@@ -133,25 +138,52 @@ header > h1 {
 .keyboardRow {
     display: flex;
     flex-direction: row;
+    width: 100%;
     justify-content: space-around;
-    column-gap: 2px;
+    touch-action: manipulation;
+}
+
+.keyboardRow > button:last-child {
+    margin: 0 0 0 0;
 }
 
 .keyboardButton {
     border: 1px solid black;
+    font-family: 'Ubuntu Mono', monospace;
+    font-size: 1.2em;
+    font-weight: bold;
     text-align: center;
-    padding: 14px 10px;
-    flex: 0 1 40px;
+    flex: 1 1 0px;
+    height: 50px;
+    margin: 0 6px 0 0;
     background-color: var(--unfoundColor);
     color: black;
+    cursor: pointer;
+    min-width: 40px;
+    max-width: 40px;
+    border-radius: 4px;
+}
+
+@media only screen and (max-width: 500px) {
+    .keyboardButton {
+        min-width: 30px;
+        max-width: 30px;
+    }
+}
+
+#row-2 {
+    justify-content: center;
+}
+
+#Backspace, #Enter {
+    min-width: none;
+    max-width: none;
+    font-size: 0.6em;
+    flex: 2 1 0px;
 }
 
 #row-2 {
     margin: 2px 0;
-}
-
-.disable-dbl-tap-zoom {
-  touch-action: manipulation;
 }
 
 #lifelinesDiv {
@@ -168,11 +200,13 @@ header > h1 {
     padding: 4px 6px;
     flex-basis: 40%;
     text-align: center;
+    font-family: 'Sigmar One', cursive;
 }
 
 #lifelinesDialog > button {
     font-size: 1.2em;
     padding: 0.3em;
+    font-family: 'Ubuntu Mono', monospace;
     /* width: 45%; */
     
 }
@@ -189,6 +223,7 @@ header > h1 {
 
 #lifelinesDialog:modal {
     display: flex;
+    font-family: 'Ubuntu Mono', monospace;
     font-size: 1.4em;
     background-color: #FF7900;
     border-radius: 5px;
@@ -203,22 +238,19 @@ dialog {
     background-color: #FF6D00;
     color: white;
     font-size: 1.5em;
+    font-family: 'Ubuntu Mono', monospace;
     border-radius: 5px;
     text-align: center;
 }
 
 dialog > button {
-    font-size: 0.7em;
+    font-size: 0.9em;
+    padding: 10px;
+    font-family: 'Ubuntu Mono', monospace;
     background-color: #FF9100;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 #answer {
     font-size: 2em;
-}
-
-footer {
-    grid-column: 1 / 4;
-    grid-row: 10 / 11;
-    text-align: center;
 }

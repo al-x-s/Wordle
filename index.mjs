@@ -176,6 +176,7 @@ const checkanswer = (guessArray) => {
         round++
     } else if (guessWord === gameWord) {
         gameWinDialog.showModal();
+        confetti();
         
     } else if (guessWord !== gameWord && guessNumber === 6) {
         gameLoseDialog.showModal();
@@ -448,19 +449,19 @@ const phoneFriend = (button) => {
 
     // first create an array which takes the index of any revealDiv's that are already in use
 
-    let alreadyRevealedIndex = -1;
+    let alreadyRevealedIndex = [];
 
     revealBoxes.forEach((box, index) => {
         if (box.textContent !== '?') {
-            alreadyRevealedIndex = index;
+            alreadyRevealedIndex.push(index);
         }
-    })
+    });
 
      // take the word Array and look through the keyboardObject for all of the letters that are lightgrey and push them into a new array
     let phoneFriendArray = [];
 
      gameWordArray.forEach((letter, index) => {
-        if (index !== alreadyRevealedIndex && (keyboardObject[letter].state === 'unfound' || keyboardObject[letter].state === 'found')) {
+        if (index !== alreadyRevealedIndex[0] && (keyboardObject[letter].state === 'unfound' || keyboardObject[letter].state === 'found')) {
             phoneFriendArray.push(letter);
         }
     });

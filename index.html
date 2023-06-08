@@ -3,6 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Castoro+Titling&family=Comfortaa:wght@700&family=Sigmar+One&family=Ubuntu+Mono&display=swap" rel="stylesheet">
+    <!-- CANVAS CONFETTI -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -12,7 +18,7 @@
 <body>
     <div id="container">
         <header>
-            <h1>Millionordle</h1>
+            <h1>MILLIONORDLE</h1>
             <p id="roundCounter">Round 1 - $100</p>
         </header>
         <div id="row-reveal">
@@ -64,7 +70,7 @@
             <div id="phoneFriendIcon" class="icon">
                 <i class="fas fa-phone"></i>
             </div>
-            <div id="lifelines">Lifelines</div>
+            <div id="lifelines">LIFELINES</div>
             <div id="newWordIcon" class="icon">
                 <i class="fas fa-sync-alt"></i>
             </div>
@@ -72,18 +78,18 @@
                 <i class="fas fa-percent"></i>
             </div>
         </div>
-        <div id="keyboard" class="disable-dbl-tap-zoom">
+        <div id="keyboard">
             <div id="row-1" class="keyboardRow">
-                <div id="q" class="keyboardButton">Q</div>
-                <div id="w" class="keyboardButton">W</div>
-                <div id="e" class="keyboardButton">E</div>
-                <div id="r" class="keyboardButton">R</div>
-                <div id="t" class="keyboardButton">T</div>
-                <div id="y" class="keyboardButton">Y</div>
-                <div id="u" class="keyboardButton">U</div>
-                <div id="i" class="keyboardButton">I</div>
-                <div id="o" class="keyboardButton">O</div>
-                <div id="p" class="keyboardButton">P</div>
+                <button id="q" class="keyboardButton">Q</button>
+                <button id="w" class="keyboardButton">W</button>
+                <button id="e" class="keyboardButton">E</button>
+                <button id="r" class="keyboardButton">R</button>
+                <button id="t" class="keyboardButton">T</button>
+                <button id="y" class="keyboardButton">Y</button>
+                <button id="u" class="keyboardButton">U</button>
+                <button id="i" class="keyboardButton">I</button>
+                <button id="o" class="keyboardButton">O</button>
+                <button id="p" class="keyboardButton">P</button>
             </div>
             <div id="row-2" class="keyboardRow">
                 <button id="a" class="keyboardButton">A</button>
@@ -108,11 +114,10 @@
                 <button id="Enter" class="keyboardButton">ENTER</button>
             </div>
         </div>
-
     </div>
-    <footer>
+    <!-- <footer>
         <p>Created by Alex Slater</p>
-    </footer>
+    </footer> -->
     <dialog id="invalidWord">
         <p>Please enter a valid word</p>
     </dialog>
@@ -132,9 +137,9 @@
         <button id="newGameLose">Play Again</button>
     </dialog>
     <dialog id="lifelinesDialog">
-        <button id="askAudience">Ask The Audience</button>
-        <button id="phoneFriend">Phone A Friend</button>
-        <button id="newWord">New Word</button>
+        <button id="askAudience">ASK THE AUDIENCE</button>
+        <button id="phoneFriend">PHONE A FRIEND</button>
+        <button id="newWord">NEW WORD</button>
         <button id="50-50">50/50</button>
         <button id="cancelLifeline" autofocus>Cancel</button>
     </dialog>
