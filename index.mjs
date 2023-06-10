@@ -58,7 +58,7 @@ const nextRound = () => {
     roundCounter.textContent = `Round ${round} - ${prizeMoney[round-1]}`;
     gameWord = wordList[Math.floor(Math.random() * wordList.length)];
     gameWordArray = Array.from(gameWord);
-    console.log(`Round ${round} word is ${gameWord}`);
+    // console.log(`Round ${round} word is ${gameWord}`);
     // reset grid squares to empty...you'll need to i
     const gameSquares = Array.from(document.getElementsByClassName('square'));
 
@@ -477,7 +477,6 @@ const askAudience = (button) => {
         }
     })
 
-    console.log(alreadyRevealedIndex);
 
     // take the word Array and look through the keyboardObject for all of the letters that are lightgrey and push them into a new array
     let askAudienceArray = [];
@@ -495,7 +494,6 @@ const askAudience = (button) => {
      // get the index of this value from the word Array so you can avoid it
 
     let avoidIndex = [gameWordArray.indexOf(askAudienceLetter)];
-    console.log(avoidIndex);
 
     let indexArray = [0, 1, 2, 3, 4];
     let indexChoices = []
