@@ -25,6 +25,7 @@ If you're using third parties you can use the more comprehensive fix which is::a
 body {
     background-color: var(--backgroundColor);
     color: var(--textColor);
+    height: 100vh;
     font-family: 'Ubuntu Mono', monospace;
 }
 
@@ -128,7 +129,7 @@ header > h1 {
 
 #keyboard {
     height: 10.5em;
-    max-width: 370px;
+    max-width: 100%;
     grid-column: 1 / 4;
     grid-row: 9 / 10;
     justify-self: center;
@@ -138,7 +139,7 @@ header > h1 {
 .keyboardRow {
     display: flex;
     flex-direction: row;
-    width: 100%;
+    /* width: 354px; */
     justify-content: space-around;
     touch-action: manipulation;
 }
@@ -149,8 +150,9 @@ header > h1 {
 
 .keyboardButton {
     border: 1px solid black;
-    font-family: 'Ubuntu Mono', monospace;
-    font-size: 1.2em;
+    /* font-family: 'Ubuntu Mono', monospace; */
+    /* font-family: 'Roboto'; */
+    /* font-size: 1.2em; */
     font-weight: bold;
     text-align: center;
     flex: 1 1 0px;
@@ -166,8 +168,8 @@ header > h1 {
 
 @media only screen and (max-width: 500px) {
     .keyboardButton {
-        min-width: 30px;
-        max-width: 30px;
+        min-width: 32px;
+        max-width: 32px;
     }
 }
 

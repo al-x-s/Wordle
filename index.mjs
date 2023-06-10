@@ -5,12 +5,12 @@ import { alphabet, keyboardObject, wordList, prizeMoney } from "./data.mjs";
 
 // randomly select a word from that list to be the gameWord
 let gameWord = wordList[Math.floor(Math.random() * wordList.length)];
-console.log(`Round answer is ${gameWord}`);
 // create an Array from that word
 let gameWordArray = Array.from(gameWord);
 let guessNumber = 1;
 let round = 1;
 let wins = 0;
+
 
 // ****** COLOURS ******
 // Colours for keyboardObject.states
@@ -28,6 +28,7 @@ const notEnoughLettersDialog = document.getElementById('notEnoughLetters');
 const roundCounter = document.getElementById('roundCounter');
 const roundWinDialog = document.getElementById('roundWinDialog');
 const roundWinMessage = document.getElementById('roundWinMessage');
+const gameLoseMessage = document.getElementById('gameLoseMessage')
 const nextRoundButton = document.getElementById('nextRound');
 const gameWinDialog = document.getElementById('gameWinDialog');
 const gameWinMessage = document.getElementById('gameWinMessage');
@@ -81,13 +82,19 @@ const nextRound = () => {
 const newGame = () => {
     wins++
     round = 1;
-    console.log("YOU WIN")
     nextRound();
     lifelineDialogButtons.forEach((button) => {
         button.disabled = false;
     });
 
+    askAudienceIcon.style.color = '#FBFCFF';
+    fiftyFiftyIcon.style.color = '#FBFCFF';
+    newWordIcon.style.color = '#FBFCFF';
+    phoneFriendIcon.style.color = '#FBFCFF';
+
     resetReveal()
+
+    
 
 }
 
@@ -105,6 +112,10 @@ const updateKeyboard = (letter, state, color) => {
     }
 
 }
+
+// The gameWordObject which is used to identify instances of double letters
+
+
 
 // a function that executes on ENTER and checks what has been submitted
 const checkanswer = (guessArray) => {
@@ -134,37 +145,111 @@ const checkanswer = (guessArray) => {
     // comparison with gameWordArray
 
     const resultOfGuess = () => {
-        
-        for (let i = 0; i < guessArray.length; i++) {
 
-            let letter = guessArray[i];
-            let state = ''
-            let color = ''
-     
-            if (letter === gameWordArray[i]) {
-                state = 'discovered'
-                color = locatedColor
-                rowSquares[i].style.backgroundColor = locatedColor;
-                updateKeyboard(letter, state, color);
-            } else if (gameWordArray.includes(letter)) {
-                state = 'found'
-                color = foundColor
-                rowSquares[i].style.backgroundColor = foundColor;
-                updateKeyboard(letter, state, color);
+        // create a guessWordObject with a key/value pair of indices and an array of 0-4
+        let guessWordObject = {
+            indices: [0, 1, 2, 3, 4],
+            addLetter(letter, index) {
+                    this[letter] = {
+                    "count": 1,
+                    "index": [index], 
+                }
+            }
+        };
+        // create a gameWordObject that does the same
+        let gameWordObject = {
+            indices: [0, 1, 2, 3, 4],
+            addLetter(letter, index) {
+                    this[letter] = {
+                    "count": 1,
+                    "index": [index], 
+                }
+            }
+        };
+
+
+        // for our gameWord object create keys for the letters in the gameWordArray then have a count and index for each letter which counts each instance of the letter and records its index
+        
+        for (let i = 0; i < gameWordArray.length; i++) {
+                    
+            let letter = gameWordArray[i];
+        
+            if (gameWordObject[letter] == undefined) {
+                gameWordObject.addLetter(letter, i);
             } else {
-                state = 'discarded';
-                color = discardedColor;
-                rowSquares[i].style.backgroundColor = 'black';
-                updateKeyboard(letter, state, color);
+                gameWordObject[letter].count++;
+                gameWordObject[letter].index.push(i);
             }
 
-           
-     
         }
 
+        // do the same for the guessWordObject
         
+        for (let i = 0; i < guessArray.length; i++) {
+            
+            let letter = guessArray[i];
+
+            if (guessWordObject[letter] == undefined) {
+                guessWordObject.addLetter(letter, i);
+            } else {
+                guessWordObject[letter].count++;
+                guessWordObject[letter].index.push(i);
+            }
+        
+        }
+
+        //make a set from the guess Array which reduces it to unique letters only
+
+        let guessWordSet = [...new Set(guessArray)];
+
+        guessWordSet.forEach((letter) => {
+            // first you must handle if the letters is not in the gameword
+            if (gameWordObject[letter] == undefined) {
+                guessWordObject[letter].index.forEach((index) => {
+                    rowSquares[index].style.backgroundColor = 'black'
+                    // guessWordObject.indices.splice(index, 1);
+                })
+                // Send state and colour to the updateKeyboard function
+                let state = 'discarded'
+                let color = discardedColor
+                updateKeyboard(letter, state, color);
+                return;
+            }
+            
+            // if the letter is in the game word you must assess how many instances of the letter is in the gameword
+            let letterInstanceCount = gameWordObject[letter].count;
+            // compare the indexes of the letter to see if there is a located letter
+            guessWordObject[letter].index.forEach((index) => {
+                if (gameWordObject[letter].index.includes(index)) {
+                    let state = 'located';
+                    let color = locatedColor;
+                    rowSquares[index].style.backgroundColor = locatedColor;
+                    updateKeyboard(letter, state, color);
+                    letterInstanceCount--
+                } 
+            })
+        
+            // now search for yellow letters but not if the count reaches 0 AND the index has been removed from the indices
+        
+            guessWordObject[letter].index.forEach((index) => {
+                if (guessWordObject.indices.includes(index) && letterInstanceCount !== 0) {
+                    let state = 'found';
+                    let color = foundColor;
+                    if (rowSquares[index].style.backgroundColor != 'rgb(105, 153, 93)') {
+                        rowSquares[index].style.backgroundColor = foundColor;
+                    }
+                    updateKeyboard(letter, state, color);
+                    letterInstanceCount--
+                } else if (letterInstanceCount == 0 && rowSquares[index].style.backgroundColor === 'rgb(36, 0, 70)') {
+                    rowSquares[index].style.backgroundColor = 'black';
+                }
+            })
+        
+    })
+
         guessNumber++
     }
+
     
     resultOfGuess();
 
@@ -179,6 +264,7 @@ const checkanswer = (guessArray) => {
         confetti();
         
     } else if (guessWord !== gameWord && guessNumber === 6) {
+        gameLoseMessage.innerHTML = `You Lost! The correct answer was <span id="answer">${gameWord.toUpperCase()}</span>`
         gameLoseDialog.showModal();
     }
 }
@@ -245,8 +331,6 @@ const screenKeyboard = (e) => {
     if (!e.target.classList.contains('keyboardButton')) {
         return;
     }
-
-    console.log(e.target.id);
 
     let guessId = `row-guess-${guessNumber}`;
     let rowGuess = document.getElementById(guessId);
@@ -336,7 +420,6 @@ const openLifeline = () => {
 }
 
 const fiftyfifty = (button) => {
-    console.log("fiftyfifty");
     button.disabled = true;
     fiftyFiftyIcon.style.color = 'black';
     //create an array which pushes keys for values of 'lightgrey' from keyboardObject
@@ -347,18 +430,15 @@ const fiftyfifty = (button) => {
         }
     });
     
-    console.log(`init: ${unusedLetters}`);
 
     //remove letters from the array which are in the gameWord
     gameWordArray.forEach((letter) => {
         if (unusedLetters.includes(letter)) {
             let index = unusedLetters.indexOf(letter);
-            console.log(index);
             unusedLetters.splice(index, 1);
         }
     });
     
-    console.log(`without Game Letters: ${unusedLetters}`);
 
     //"shuffle" unused letters array
     shuffle(unusedLetters);
@@ -384,7 +464,6 @@ const fiftyfifty = (button) => {
 }
 
 const askAudience = (button) => {
-    console.log("askAudience");
     button.disabled = true;
     askAudienceIcon.style.color = 'black';
 
@@ -398,6 +477,8 @@ const askAudience = (button) => {
         }
     })
 
+    console.log(alreadyRevealedIndex);
+
     // take the word Array and look through the keyboardObject for all of the letters that are lightgrey and push them into a new array
     let askAudienceArray = [];
 
@@ -410,28 +491,39 @@ const askAudience = (button) => {
     // select a value from the array at random
 
     let askAudienceLetter = askAudienceArray[Math.floor(Math.random() * askAudienceArray.length)]
-    console.log(askAudienceLetter);
 
      // get the index of this value from the word Array so you can avoid it
 
-     let avoidIndex = gameWordArray.indexOf(askAudienceLetter);
-     let indexArray = [1, 2, 3, 4, 5];
-     indexArray.splice(avoidIndex, 1);
-     if (alreadyRevealedIndex[0] >= 0) {
-        indexArray.splice(alreadyRevealedIndex[0], 1);
-     }
+    let avoidIndex = [gameWordArray.indexOf(askAudienceLetter)];
+    console.log(avoidIndex);
+
+    let indexArray = [0, 1, 2, 3, 4];
+    let indexChoices = []
+
+    indexArray.forEach((index) => {
+        if (avoidIndex.includes(index) || alreadyRevealedIndex.includes(index)) {
+
+        } else {
+            indexChoices.push(index);
+        }
+    })
+
+    //  indexArray.splice(avoidIndex, 1);
+    //  if (alreadyRevealedIndex[0] >= 0) {
+    //     indexArray.splice(alreadyRevealedIndex[0], 1);
+    //  }
     
-     let index = indexArray[Math.floor(Math.random() * indexArray.length)];
-     if (index === 5) {
-        index--
+     let indexChoice = indexChoices[Math.floor(Math.random() * indexChoices.length)];
+     if (indexChoice === 5) {
+        indexChoice--
      }
 
      // then create an index which is not the avoid index or the already revealed index
 
      // target the row-reveal Div's with a querySelectorAll and use the index of the value from the word array to target a div and change it's textContent to the letter as well as it's background color to green
  
-     revealBoxes[index].textContent = askAudienceLetter.toUpperCase();
-     revealBoxes[index].style.backgroundColor = foundColor;
+     revealBoxes[indexChoice].textContent = askAudienceLetter.toUpperCase();
+     revealBoxes[indexChoice].style.backgroundColor = foundColor;
      
      // after this change the keyboardObject[letter].color to green as well
  
@@ -443,7 +535,6 @@ const askAudience = (button) => {
 }
 
 const phoneFriend = (button) => {
-    console.log("phoneFriend");
     button.disabled = true;
     phoneFriendIcon.style.color = 'black';
 
@@ -489,7 +580,6 @@ const phoneFriend = (button) => {
 }
 
 const newWord = (button) => {
-    console.log("newWord");
     button.disabled = true;
     newWordIcon.style.color = 'black';
 
@@ -545,4 +635,4 @@ lifelinesButton.addEventListener('click', openLifeline);
 lifelinesDialog.addEventListener('click', lifelineOptions);
 
 
-newGame();
+newGame()
