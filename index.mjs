@@ -525,7 +525,8 @@ const askAudience = (button) => {
      
      // after this change the keyboardObject[letter].color to green as well
  
-     keyboardObject[askAudienceLetter].state = 'found';
+    //  keyboardObject[askAudienceLetter].state = 'found';
+    updateKeyboard(askAudienceLetter, 'found', foundColor);
  
      // close Lifelines dialog window
      lifelinesDialog.close();
@@ -570,7 +571,8 @@ const phoneFriend = (button) => {
     
     // after this change the keyboardObject[letter].color to green as well
 
-    keyboardObject[phoneFriendLetter].state = 'located';
+    // keyboardObject[phoneFriendLetter].state = 'located';
+    updateKeyboard(phoneFriendLetter, 'located', locatedColor)
 
     // close Lifelines dialog window
     lifelinesDialog.close();
